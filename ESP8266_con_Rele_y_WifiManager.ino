@@ -135,7 +135,7 @@ void setup() {
   wifiManager.addParameter(&custom_blynk_token4);
 
   //reset settings - for testing
-  wifiManager.resetSettings();
+  //wifiManager.resetSettings();
 
   //set minimu quality of signal so it ignores AP's under that quality
   //defaults to 8%
@@ -217,10 +217,12 @@ void callback(char* topic, byte* payload, unsigned int length) {
        Serial.print("rele 1 = 1");
       digitalWrite(pinRele1, LOW);   // Turn the LED on (Note that LOW is the voltage level
       // but actually the LED is on; this is because
+       client.publish("stateR1", "1");
       // it is acive low on the ESP-01)
     } else {
       Serial.print("rele 1 = 0");
       digitalWrite(pinRele1, HIGH);  // Turn the LED off by making the voltage HIGH
+       client.publish("stateR1", "0");
     }
     
   }//fin if r1
@@ -231,10 +233,12 @@ void callback(char* topic, byte* payload, unsigned int length) {
       Serial.print("rele 2 = 1");
       digitalWrite(pinRele2, LOW);   // Turn the LED on (Note that LOW is the voltage level
       // but actually the LED is on; this is because
+      client.publish("stateR2", "1");
       // it is acive low on the ESP-01)
     } else {
       Serial.print("rele 2 = 0");
       digitalWrite(pinRele2, HIGH);  // Turn the LED off by making the voltage HIGH
+       client.publish("stateR2", "0");
     }
     
   }//fin if r2
@@ -246,10 +250,12 @@ void callback(char* topic, byte* payload, unsigned int length) {
       Serial.print("rele 3 = 1");
       digitalWrite(pinRele3, LOW);   // Turn the LED on (Note that LOW is the voltage level
       // but actually the LED is on; this is because
+       client.publish("stateR3", "1");
       // it is acive low on the ESP-01)
     } else {
       Serial.print("rele 3 = 0");
       digitalWrite(pinRele3, HIGH);  // Turn the LED off by making the voltage HIGH
+       client.publish("stateR3", "0");
     }
     
   }//fin if r3
@@ -260,10 +266,12 @@ void callback(char* topic, byte* payload, unsigned int length) {
       Serial.print("rele 4 = 1");
       digitalWrite(pinRele4, LOW);   // Turn the LED on (Note that LOW is the voltage level
       // but actually the LED is on; this is because
+       client.publish("stateR4", "1");
       // it is acive low on the ESP-01)
     } else {
       Serial.print("rele 4 = 0");
       digitalWrite(pinRele4, HIGH);  // Turn the LED off by making the voltage HIGH
+       client.publish("stateR4", "0");
     }
     
   }//fin if r4
