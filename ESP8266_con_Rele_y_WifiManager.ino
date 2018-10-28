@@ -20,10 +20,10 @@ PubSubClient client(espClient);
 //define your default values here, if there are different values in config.json, they are overwritten.
 char mqtt_server[40];
 char mqtt_port[6] = "1883";
-char blynk_token[34] = "Relé 1";
-char blynk_token2[34] = "Relé 2";
-char blynk_token3[34] = "Relé 3";
-char blynk_token4[34] = "Relé 4";
+char blynk_token[34] = "r1";
+char blynk_token2[34] = "r2";
+char blynk_token3[34] = "r3";
+char blynk_token4[34] = "r4";
 
 #define pinRele1 16
 #define pinRele2 5
@@ -53,9 +53,13 @@ void setup() {
   
   //Declaramos los pines de los Relé
   pinMode(pinRele1, OUTPUT);
+  digitalWrite(pinRele1, HIGH);
   pinMode(pinRele2, OUTPUT);
+  digitalWrite(pinRele2, HIGH);
   pinMode(pinRele3, OUTPUT);
+  digitalWrite(pinRele3, HIGH);
   pinMode(pinRele4, OUTPUT);
+  digitalWrite(pinRele4, HIGH);
   
   Serial.println();
 
@@ -87,9 +91,9 @@ void setup() {
           strcpy(mqtt_server, json["mqtt_server"]);
           strcpy(mqtt_port, json["mqtt_port"]);
           strcpy(blynk_token, json["blynk_token"]);
-          strcpy(blynk_token2, json["blynk_token"]);
-          strcpy(blynk_token3, json["blynk_token"]);
-          strcpy(blynk_token4, json["blynk_token"]);
+          strcpy(blynk_token2, json["blynk_token2"]);
+          strcpy(blynk_token3, json["blynk_token3"]);
+          strcpy(blynk_token4, json["blynk_token4"]);
 
         } else {
           Serial.println("failed to load json config");
@@ -210,6 +214,7 @@ void callback(char* topic, byte* payload, unsigned int length) {
   }
   Serial.println();
 
+
   if(String(topic) == "r1")
   {
     // Switch on the LED if an 1 was received as first character
@@ -294,6 +299,10 @@ void reconnect() {
       client.subscribe(blynk_token2);
       client.subscribe(blynk_token3);
       client.subscribe(blynk_token4);
+      client.subscribe("stateR1");
+      client.subscribe("stateR2");
+      client.subscribe("stateR3");
+      client.subscribe("stateR4");
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
@@ -308,6 +317,7 @@ void reconnect() {
 void loop() {
 
   if (!client.connected()) {
+    
     reconnect();
     //Serial.print("Cliente mqtt desconectado");
   }
