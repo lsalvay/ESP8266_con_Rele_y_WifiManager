@@ -12,7 +12,7 @@
 
 #include <ArduinoJson.h>          //https://github.com/bblanchon/ArduinoJson
 
-// declaramos wifimanager como cliente de pubsubclient
+// declaramos wifimanager como cliente de pubsubclient ok
 
 WiFiClient espClient;
 PubSubClient client(espClient);
